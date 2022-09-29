@@ -6,7 +6,7 @@ import fetch from 'node-fetch'
 /**
  * this script takes a list of paths to attachments with question marks in
  * their name and prints out a list of shell commands for renaming the files to
- * the correct name
+ * the correct name while also noting files it cannot figure out how to rename
  */
 
 const token = fs.readFileSync('.token', { encoding: 'utf-8' }).trim()
@@ -15,7 +15,7 @@ const filestream = fs.createReadStream(file)
 const rl = readline.createInterface(filestream)
 
 // lines are structured like
-// {HASH}/{ITEM UUID}/{ITEM VERSION}/{FILENAME}
+// ./{HASH}/{ITEM UUID}/{ITEM VERSION}/{FILENAME}
 // we want to parse this out into a hash of item objects like
 //      uuid|v: [ ...lines in the item's dir ]
 // where the key is the item UUID & version together since neither alone
@@ -48,9 +48,11 @@ function checkLine(line, item) {
     if (item.attachments.some(a => a.filename === filename)) {
         return console.error(`Exact match for filename "${filename}" on item ${item.links.view} so the question mark was literal`)
     }
+
     // escape all _other_ regex special chars but convert ?s to . (regex wildcards)
     let re = new RegExp(`^${escapeRegExp(filename).replace(/\?/g, '.')}$`)
-    // we use a Set for free deduplication because some items have multiple attachments with the same filename
+    // we use a Set for free deduplication because some items have multiple
+    // attachments with the same filename
     let matches = new Set()
     item.attachments.forEach(ia => {
         if (ia.filename && ia.filename.match(re)) matches.add(ia.filename)
@@ -85,6 +87,7 @@ rl.on('close', () => {
     for (let item of Object.keys(items)) {
         let uuid = item.split('|')[0]
         let version = item.split('|')[1]
+        // we need detail for status, attachment info
         fetch(`https://vault.cca.edu/api/item/${uuid}/${version}?info=attachment,detail`, options)
             .then(r => r.json())
             .then(data => {
