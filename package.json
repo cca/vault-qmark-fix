@@ -1,0 +1,16 @@
+{
+  "name": "qmark-fix",
+  "version": "1.0.0",
+  "description": "fix mangled filenames in VAULT",
+  "type": "module",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["openEQUELLA", "filenames"],
+  "author": "phette23 <phette23@gmail.com> (https://phette.net)",
+  "license": "ECL-2.0",
+  "dependencies": {
+    "node-fetch": "^3.2.10"
+  }
+}
