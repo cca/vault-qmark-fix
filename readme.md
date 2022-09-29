@@ -28,9 +28,10 @@ Once we have the list of filenames with question marks in them, we can look up t
 - sometimes multiple attachments on the same item have question marks in the same positions of their name such that it's impossible to tell them apart from filenames alone, e.g., both "布1.jpg" and "无1.jpg" are mangled to "?1.jpg"
 - there are extraneous files in some item directories which are not listed in their attachments (example: the .psd files of [this item](https://vault.cca.edu/items/a056ebf2-9d3e-483a-9fce-6fd840647e0e/2/))
 - it seems to be possible to have multiple attachments with the same name, at least in the metadata ([example](https://vault.cca.edu/items/8dce28dd-667b-4c4f-af93-625c6b5e4d16/1/))
+- unpacked zip archives may have mangled filenames but only the .zip itself is present in metadata
 - there are vagaries with unicode and regular expressions that I probably do not understand
 
-but in the end we should generate both a list of `mv` commands to rename affected attachments and a list of complications that'll require manual intervention. The whole process is merely `node index qmark-files.txt > rename.sh 2> errors.txt` where qmark-files.txt is the text output mentioned under Setup, rename.sh is the renaming script to run on the serer, and errors.txt is the list of complications.
+In the end, we should generate both a list of `mv` commands to rename affected attachments and a list of complications that'll require manual intervention. The whole process is merely `node index qmark-files.txt > rename.sh 2> errors.txt` where qmark-files.txt is the text output mentioned under Setup, rename.sh is the renaming script to run on the serer, and errors.txt is the list of complications. You may want to sort the rename.sh script so it operates on each item in sequence; since a lot of processing happens in parallel, the output of index.js is not gauranteed to be in any particular order.
 
 ## LICENSE
 

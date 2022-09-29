@@ -42,7 +42,7 @@ function checkLine(line, item) {
     // attachment name is the end of the line, possibly includes slashes itself
     let line_parts = line.split('/')
     let path = line_parts.slice(0, 4).join('/')
-    let filename = line_parts.slice(4).join()
+    let filename = line_parts.slice(4).join('/')
 
     // there's no literal match in item's attachments so ? is a substitute
     if (item.attachments.some(a => a.filename === filename)) {
