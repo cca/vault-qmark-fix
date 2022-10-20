@@ -31,7 +31,7 @@ Once we have the list of filenames with question marks in them, we can look up t
 - unpacked zip archives may have mangled filenames but only the .zip itself is present in metadata
 - there are vagaries with unicode and regular expressions that I probably do not understand
 
-In the end, we should generate both a list of `mv` commands to rename affected attachments and a list of complications that'll require manual intervention. The whole process is merely `node index qmark-files.txt > rename.sh 2> errors.txt` where qmark-files.txt is the text output mentioned under Setup, rename.sh is the renaming script to run on the serer, and errors.txt is the list of complications. You may want to sort the rename.sh script so it operates on each item in sequence; since a lot of processing happens in parallel, the output of index.js is not gauranteed to be in any particular order.
+In the end, we should generate both a list of `mv` commands to rename affected attachments and a list of complications that'll require manual intervention. The whole process is merely `node index qmark-files.txt > rename.sh 2> errors.txt` where qmark-files.txt is the text output mentioned under Setup, rename.sh is the renaming script to run on the server, and errors.txt is the list of complications. You may want to sort the rename.sh script so it operates on each item in sequence; since a lot of processing happens in parallel, the output of index.js is not gauranteed to be in any particular order.
 
 ## LICENSE
 
