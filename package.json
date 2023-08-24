@@ -7,10 +7,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["openEQUELLA", "filenames"],
+  "keywords": [
+    "openEQUELLA",
+    "filenames"
+  ],
   "author": "phette23 <phette23@gmail.com> (https://phette.net)",
   "license": "ECL-2.0",
   "dependencies": {
-    "node-fetch": "^3.2.10"
+    "node-fetch": "^3.3.2"
   }
 }
